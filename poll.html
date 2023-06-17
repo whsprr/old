@@ -133,7 +133,7 @@
       const trueVotes = pollDetails.trueVotes;
       const falseVotes = pollDetails.falseVotes;
       const encodedPoll = encodeURIComponent(poll);
-      const prefixedMessage = `https://whsprr-test-1.koiltech.repl.co/whsprr.html?poll=${encodedPoll}&true=${trueVotes}&false=${falseVotes}`;
+      const prefixedMessage = `https://whsprr.github.io/poll.html?poll=${encodedPoll}&true=${trueVotes}&false=${falseVotes}`;
       const passUrl = `encode.html?message=${prefixedMessage}`;
       window.location.href = passUrl;
     }
