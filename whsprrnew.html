@@ -71,7 +71,7 @@
   <script>
     function sendMessage() {
       // Get the user's input
-      var message = document.getElementById("messageInput").value;
+      var message = document.getElementById("messageInput").textContent;
       
       // Add "whsprr\\" to the front of the message
       var encodedMessage = "whsprr.github.io/whsprr.html?message=" + message;
