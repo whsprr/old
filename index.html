@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: center;
     background-color: white; /* Set the background color to green */
-    color: white;
+    color: black;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -54,6 +54,21 @@ button {
       margin-top: 20px;
       text-align: center;
     }
+      #friendsInput {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    text-align: center; /* Center-align the text */
+    background-color: transparent; /* Make the background transparent */
+    color: white; /* Set the text color to white */
+    font-size: 2em; /* Set the font size to h1 size (adjust as desired) */
+    line-height: 1.2; /* Adjust the line height as needed */
+  }
   </style>
 </head>
 <body>
@@ -103,7 +118,8 @@ button {
       },
       {
         text: "Is {friend} dumb?"
-      },{
+      },
+      {
         text: "Is {friend} a bookworm?"
       },
       // Add more questions here
@@ -159,12 +175,10 @@ button {
 <body>
   <h1>whsprr Quiz</h1>
 
-  <div id="questionContainer">
     <h3 id="question"></h3>
     <button id="trueButton" onclick="generateQuestion()">Yes ☑️</button>
     <button id="falseButton" onclick="generateQuestion()">No 🚫</button>
-  </div>
-
+<br>
   <input type="text" id="friendsInput" placeholder="Enter a friend's name">
   <button onclick="saveFriends()">Add Friend</button>
 
