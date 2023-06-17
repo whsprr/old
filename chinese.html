@@ -99,7 +99,7 @@
     function passMessage() {
       var message = document.getElementById("messageInput").value;
       if (message) {
-        var prefixedMessage = "china\\\\" + message;
+        var prefixedMessage = "https://whsprr.github.io/chinese?message=" + message;
         window.location.href = "encode.html?message=" + encodeURIComponent(prefixedMessage);
       } else {
         alert("Please enter a message!");
