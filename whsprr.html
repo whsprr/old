@@ -82,7 +82,7 @@
     function passMessage() {
       var message = getUrlParameter('message');
       if (message) {
-        var prefixedMessage = "https://whsprr-test-1.koiltech.repl.co/whsprr.html?message=" + message;
+        var prefixedMessage = "https://whsprr.github.io/whsprr.html?message=" + message;
         window.location.href = "encode.html?message=" + encodeURIComponent(prefixedMessage);
       } else {
         alert("No message found in the URL parameter!");
