@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whsprr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: purple;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #qrcode {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <h1 id="pollQuestion"></h1>
+  <button onclick="vote('true')" id="trueButton">Vote for True</button>
+  <button onclick="vote('false')" id="falseButton">Vote for False</button>
+  <button onclick="passMessage()" id="passButton" disabled>Pass</button>
+  <div id="qrcode"></div>
+
+  <script>
+    // Get poll details from URL parameter
+    function getPollDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const poll = urlParams.get('poll');
+      let trueVotes = parseInt(urlParams.get('true')) || 0;
+      let falseVotes = parseInt(urlParams.get('false')) || 0;
+      return { poll, trueVotes, falseVotes };
+    }
+
+    // Update poll question
+    function updatePollQuestion() {
+      const pollDetails = getPollDetails();
+      document.getElementById("pollQuestion").innerText = pollDetails.poll;
+    }
+
+    // Update URL parameters
+    function updateURLParams(pollDetails) {
+      const { poll, trueVotes, falseVotes } = pollDetails;
+      const encodedPoll = encodeURIComponent(poll);
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set('poll', encodedPoll);
+      searchParams.set('true', trueVotes.toString());
+      searchParams.set('false', falseVotes.toString());
+      const newURL = `${window.location.pathname}?${searchParams.toString()}`;
+      window.history.replaceState({}, '', newURL);
+    }
+
+    // Vote for an option
+    function vote(option) {
+      const trueButton = document.getElementById('trueButton');
+      const falseButton = document.getElementById('falseButton');
+      const passButton = document.getElementById('passButton');
+
+      trueButton.disabled = true;
+      falseButton.disabled = true;
+      passButton.disabled = false;
+
+      const pollDetails = getPollDetails();
+      if (option === 'true') {
+        pollDetails.trueVotes++;
+      } else if (option === 'false') {
+        pollDetails.falseVotes++;
+      }
+      updateURLParams(pollDetails);
+      updatePollResults(pollDetails);
+    }
+
+    // Display poll results
+    function displayResults() {
+      // This function is not needed anymore
+    }
+
+    // Update poll results
+    function updatePollResults(pollDetails) {
+      const trueVotes = pollDetails.trueVotes;
+      const falseVotes = pollDetails.falseVotes;
+      const totalVotes = trueVotes + falseVotes;
+      const truePercentage = (trueVotes / totalVotes) * 100 || 0;
+      const falsePercentage = (falseVotes / totalVotes) * 100 || 0;
+
+      const resultsMessage = `True: ${trueVotes} votes (${truePercentage.toFixed(2)}%)\nFalse: ${falseVotes} votes (${falsePercentage.toFixed(2)}%)`;
+
+      document.getElementById("pollQuestion").innerText = resultsMessage;
+    }
+
+    // Pass the poll
+    function passMessage() {
+      const pollDetails = getPollDetails();
+      const poll = pollDetails.poll;
+      const trueVotes = pollDetails.trueVotes;
+      const falseVotes = pollDetails.falseVotes;
+      const encodedPoll = encodeURIComponent(poll);
+      const prefixedMessage = `https://whsprr-test-1.koiltech.repl.co/whsprr.html?poll=${encodedPoll}&true=${trueVotes}&false=${falseVotes}`;
+      const passUrl = `encode.html?message=${prefixedMessage}`;
+      window.location.href = passUrl;
+    }
+
+    // Autofill poll details from URL parameter
+    function autofillPollDetails() {
+      const pollDetails = getPollDetails();
+      updatePollQuestion();
+
+      const showResultsButton = document.getElementById('showResultsButton');
+      showResultsButton.style.display = 'none';
+
+      if (pollDetails.trueVotes > 0 || pollDetails.falseVotes > 0) {
+        const trueButton = document.getElementById('trueButton');
+        const falseButton = document.getElementById('falseButton');
+        trueButton.disabled = true;
+        falseButton.disabled = true;
+        document.getElementById('passButton').disabled = false;
+        updatePollResults(pollDetails);
+      }
+    }
+
+    autofillPollDetails();
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR Code Scanner</title>
+  <style>
+    #video {
+      max-width: 100%;
+      height: auto;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Code Scanner</h1>
+  <video id="video" playsinline></video>
+  <div id="result"></div>
+  <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <script>
+    const video = document.getElementById('video');
+    const resultDiv = document.getElementById('result');
+    let scanner = null;
+
+    function selectCamera() {
+      Instascan.Camera.getCameras()
+        .then(function (cameras) {
+          if (cameras.length > 0) {
+            let selectedCamera = cameras[0];
+            
+            if (navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i)) {
+              const backCamera = cameras.find(camera => camera.name.toLowerCase().includes('back'));
+              if (backCamera) {
+                selectedCamera = backCamera;
+              } else {
+                console.warn('Back camera not found. Using the default camera.');
+              }
+            }
+
+            scanner = new Instascan.Scanner({ video: video, mirror: false });
+            scanner.addListener('scan', function (content) {
+              console.log('QR code detected:', content);
+              resultDiv.innerText = content;
+              
+              if (content.startsWith('whsprr\\')) {
+                const message = content.substring(8);
+                const redirectUrl = `whsprr.html?message=${encodeURIComponent(message)}`;
+                window.location.href = redirectUrl;
+              } else if (content.startsWith('china\\')) {
+                const message = content.substring(7);
+                const redirectUrl = `chinese.html?message=${encodeURIComponent(message)}`;
+                window.location.href = redirectUrl;
+              }
+            });
+
+            scanner.start(selectedCamera);
+          } else {
+            console.error('No cameras found.');
+          }
+        })
+        .catch(function (error) {
+          console.error('Error accessing the camera:', error);
+        });
+    }
+
+    selectCamera();
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whsprr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #990000;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #qrcode {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <h1 id="messageHeader"></h1>
+  <button onclick="saveMessage()">😅 Save Message</button>
+  <button onclick="passMessage()">✉️ Pass</button>
+  <div id="qrcode"></div>
+
+  <script>
+    // Save message to local storage
+    function saveMessage() {
+      var message = getUrlParameter('message');
+      if (message) {
+        var savedMessages = localStorage.getItem("savedMessages");
+        if (savedMessages) {
+          savedMessages = JSON.parse(savedMessages);
+        } else {
+          savedMessages = [];
+        }
+        savedMessages.push(message);
+        localStorage.setItem("savedMessages", JSON.stringify(savedMessages));
+        alert("whsprr saved successfully!");
+      } else {
+        alert("No message found in the URL parameter!");
+      }
+    }
+
+    // Add prefix to message and redirect
+    function passMessage() {
+      var message = getUrlParameter('message');
+      if (message) {
+        var prefixedMessage = "https://whsprr-test-1.koiltech.repl.co/whsprr.html?message=" + message;
+        window.location.href = "encode.html?message=" + encodeURIComponent(prefixedMessage);
+      } else {
+        alert("No message found in the URL parameter!");
+      }
+    }
+
+    // Autofill message from URL parameter
+    function getUrlParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    var urlMessage = getUrlParameter('message');
+    if (urlMessage) {
+      document.getElementById("messageHeader").innerText = decodeURIComponent(urlMessage);
+    }
+  </script>
+</body>
+</html>

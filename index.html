@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whsprr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-image: url('wallpaper.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: cover; /* Adjust this property based on your image's aspect ratio */
+  color: black;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #qrcode {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <button onclick="location.href='whsprrnew.html';">🏁 Start a whsprr</button>
+  <button onclick="location.href='chinanew.html';">🗣 Start a Chinese whsprr</button>
+  <button onclick="location.href='pollnew.html';">📊 Start a poll</button>
+  <button onclick="location.href='saved.html';">😅 Saved whsprrs</button>
+</body>
+</html>

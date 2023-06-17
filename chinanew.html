@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whsprr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<style>
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: green; /* Set the background color to green */
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    margin-top: 20px;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  #qrcode {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  /* Update the styles for the input box */
+  #messageInput {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    text-align: center; /* Center-align the text */
+    background-color: transparent; /* Make the background transparent */
+    color: white; /* Set the text color to white */
+    font-size: 2em; /* Set the font size to h1 size (adjust as desired) */
+    line-height: 1.2; /* Adjust the line height as needed */
+  }
+</style>
+  <script>
+    function sendMessage() {
+      // Get the user's input
+      var message = document.getElementById("messageInput").value;
+      
+      // Add "whsprr\\" to the front of the message
+      var encodedMessage = "https://whsprr-test-1.koiltech.repl.co/chinese.html?message=" + message;
+      
+      // Redirect to the encode page with the encoded message
+      window.location.href = "encode.html?message=" + encodeURIComponent(encodedMessage);
+    }
+  </script>
+</head>
+<body>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <h1>Start a Chinese whsprr</h1>
+  <label for="messageInput">Enter your whsprr: 🗣</label>
+  <input type="text" id="messageInput" />
+  <button onclick="sendMessage()">Start 🏁</button>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whsprr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<style>
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: green; /* Set the background color to green */
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    margin-top: 20px;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  #qrcode {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  /* Update the styles for the input box */
+  #messageInput {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    text-align: center; /* Center-align the text */
+    background-color: transparent; /* Make the background transparent */
+    color: white; /* Set the text color to white */
+    font-size: 2em; /* Set the font size to h1 size (adjust as desired) */
+    line-height: 1.2; /* Adjust the line height as needed */
+  }
+</style>
+
+</head>
+<body>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <input type="text" id="messageInput">
+  <button onclick="saveMessage()">😅 Save Message</button>
+  <button onclick="passMessage()">✉️ Pass</button>
+
+  <script>
+    // Save message to local storage
+    function saveMessage() {
+      var message = document.getElementById("messageInput").value;
+      if (message) {
+        var savedMessages = localStorage.getItem("savedMessages");
+        if (savedMessages) {
+          savedMessages = JSON.parse(savedMessages);
+        } else {
+          savedMessages = [];
+        }
+        savedMessages.push(message);
+        localStorage.setItem("savedMessages", JSON.stringify(savedMessages));
+        alert("whsprr saved successfully!");
+      } else {
+        alert("Please enter a message!");
+      }
+    }
+  
+    // Add prefix to message and redirect
+    function passMessage() {
+      var message = document.getElementById("messageInput").value;
+      if (message) {
+        var prefixedMessage = "china\\\\" + message;
+        window.location.href = "encode.html?message=" + encodeURIComponent(prefixedMessage);
+      } else {
+        alert("Please enter a message!");
+      }
+    }
+  
+    // Autofill message from URL parameter
+    function getUrlParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+  
+    var urlMessage = getUrlParameter('message');
+    if (urlMessage) {
+      document.getElementById("messageInput").value = decodeURIComponent(urlMessage);
+    }
+  </script>
+</body>
+</html>
