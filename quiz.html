@@ -73,7 +73,7 @@
     var currentQuestionIndex = -1;
 
     function readQuestionsFromFile() {
-      fetch("https://whsprr.github.io/questions.txt")
+      return fetch("https://whsprr.github.io/questions.txt")
         .then(response => response.text())
         .then(data => {
           questions = data.split("\n").filter(question => question.trim() !== "");
@@ -84,10 +84,11 @@
     }
 
     function startQuiz() {
-      readQuestionsFromFile();
-      displayNextQuestion();
-      document.getElementById("startButton").style.display = "none";
-      document.getElementById("quizContainer").style.display = "block";
+      readQuestionsFromFile().then(function() {
+        displayNextQuestion();
+        document.getElementById("startButtonContainer").style.display = "none";
+        document.getElementById("quizContainer").style.display = "block";
+      });
     }
 
     function displayNextQuestion() {
@@ -106,7 +107,7 @@
       var params = new URLSearchParams();
       params.set("question", question);
       params.set("response", encodeURIComponent(response));
-      var url = "https://whsprr.github.io/share.html?" + params.toString();
+      var url = "share.html?" + params.toString();
       navigator.clipboard.writeText(url).then(function() {
         alert("URL copied to clipboard!");
       }, function(error) {
