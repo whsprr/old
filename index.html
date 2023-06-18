@@ -16,8 +16,8 @@
   body {
     align-items: center;
     justify-content: center;
-    background-color: white; /* Set the background color to green */
-    color: black;
+    background-color: #990000; /* Set the background color to green */
+    color: white;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -76,128 +76,4 @@ button {
   <button onclick="location.href='pollnew.html';">📊 Start a poll</button>
   <button onclick="location.href='saved.html';">😅 Saved whsprrs</button>
 </body>
-   <style>
-    #questionContainer {
-      display: none;
-    }
-  </style>
-  <script>
-    // Array of questions
-    var questions = [
-      {
-        text: "Is {friend} your best friend?"
-      },
-      {
-        text: "Do you enjoy spending time with {friend}?"
-      },
-      {
-        text: "Is {friend} gay?"
-      },
-      {
-        text: "Would you hook up with {friend}?"
-      },
-      {
-        text: "Is {friend} a npc?"
-      },
-      {
-        text: "Is {friend} real?"
-      },
-      {
-        text: "Would you travel round the world with {friend}?"
-      },
-      {
-        text: "Is money on {friend} mind?"
-      },
-      {
-        text: "Would you workout with {friend}?"
-      },
-      {
-        text: "Is {friend} smart?"
-      },
-      {
-        text: "Is {friend} dumb?"
-      },
-      {
-        text: "Is {friend} a bookworm?"
-      },
-      // Add more questions here
-    ];
-
-    // Function to shuffle an array using Fisher-Yates algorithm
-    function shuffleArray(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
-
-      // While there remain elements to shuffle
-      while (currentIndex !== 0) {
-        // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-
-        // Swap it with the current element
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-    }
-
-    // Function to generate a random question about a friend
-    function generateQuestion() {
-      var friends = JSON.parse(localStorage.getItem("friends")) || [];
-
-      if (friends.length > 0) {
-        var randomIndex = Math.floor(Math.random() * friends.length);
-        var randomFriend = friends[randomIndex];
-
-        // Shuffle the questions array
-        shuffleArray(questions);
-
-        var randomQuestion = questions[0];
-        var questionText = randomQuestion.text.replace("{friend}", randomFriend);
-        var question = document.getElementById("question");
-        question.innerHTML = questionText;
-
-        var questionContainer = document.getElementById("questionContainer");
-        questionContainer.style.display = "block";
-      } else {
-        var questionContainer = document.getElementById("questionContainer");
-        questionContainer.style.display = "none";
-
-        var question = document.getElementById("question");
-        question.innerHTML = "Add some friends to generate questions!";
-      }
-    }
-  </script>
-</head>
-<body>
-  <centre>
-  <h1>whsprr Quiz</h1>
-
-    <h3 id="question"></h3>
-    <button id="trueButton" onclick="generateQuestion()">Yes ☑️</button>
-    <button id="falseButton" onclick="generateQuestion()">No 🚫</button>
-<br>
-  <input type="text" id="friendsInput" placeholder="Enter a friend's name">
-  <button onclick="saveFriends()">Add Friend</button>
-  </centre>
-
-  <script>
-    // Function to save friends' names to local storage
-    function saveFriends() {
-      var friendsInput = document.getElementById("friendsInput");
-      var friendName = friendsInput.value;
-
-      if (friendName.trim() !== "") {
-        var friends = JSON.parse(localStorage.getItem("friends")) || [];
-        friends.push(friendName);
-        localStorage.setItem("friends", JSON.stringify(friends));
-        friendsInput.value = "";
-        generateQuestion();
-      }
-    }
-
-    // Generate a question when the page loads
-    window.onload = generateQuestion;
-  </script>
 </html>
