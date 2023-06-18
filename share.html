@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>whsprr</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -74,6 +73,14 @@
       responseElement.textContent = sharedResponse;
     }
 
+    // Function to encode the current page URL
+    function encodeCurrentURL() {
+      var currentURL = window.location.href;
+      var encodedURL = encodeURIComponent(currentURL);
+      var whsprrURL = "encode.html?message=" + encodedURL;
+      window.location.href = whsprrURL;
+    }
+    
     // Run the displaySharedData function when the page loads
     window.onload = displaySharedData;
   </script>
@@ -82,5 +89,6 @@
   <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
   <h1 id="question"></h1>
   <h1 id="response"></h1>
+  <button onclick="encodeCurrentURL()">Share via Whsprr</button>
 </body>
 </html>
