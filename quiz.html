@@ -83,6 +83,13 @@
         });
     }
 
+    function startQuiz() {
+      readQuestionsFromFile();
+      displayNextQuestion();
+      document.getElementById("startButton").style.display = "none";
+      document.getElementById("quizContainer").style.display = "block";
+    }
+
     function displayNextQuestion() {
       var randomIndex = Math.floor(Math.random() * questions.length);
       currentQuestionIndex = randomIndex;
@@ -106,18 +113,18 @@
         console.error("Unable to copy URL to clipboard:", error);
       });
     }
-
-    window.onload = function() {
-      readQuestionsFromFile();
-      displayNextQuestion(); // Call displayNextQuestion after readQuestionsFromFile
-    };
   </script>
 </head>
 <body>
    <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
-  <h1 id="question"></h1>
-  <input type="text" id="response">
-  <button onclick="shareResponse()">Share</button>
-  <button onclick="displayNextQuestion()">Next</button>
+  <div id="startButtonContainer">
+    <button id="startButton" onclick="startQuiz()">Start</button>
+  </div>
+  <div id="quizContainer" style="display: none;">
+    <h1 id="question"></h1>
+    <input type="text" id="response">
+    <button onclick="shareResponse()">Share</button>
+    <button onclick="displayNextQuestion()">Next</button>
+  </div>
 </body>
 </html>
