@@ -135,7 +135,8 @@
       const encodedPoll = encodeURIComponent(poll);
       const prefixedMessage = `https://whsprr.github.io/poll.html?poll=${encodedPoll}&true=${trueVotes}&false=${falseVotes}`;
       const passUrl = `encode.html?message=${prefixedMessage}`;
-      window.location.href = passUrl;
+      const polly = encodeURIComponent(passUrl);
+      window.location.href = polly;
     }
 
     // Autofill poll details from URL parameter
