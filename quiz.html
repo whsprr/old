@@ -73,7 +73,7 @@
     var currentQuestionIndex = -1;
 
     function readQuestionsFromFile() {
-      fetch("questions.txt")
+      fetch("https://whsprr.github.io/questions.txt")
         .then(response => response.text())
         .then(data => {
           questions = data.split("\n").filter(question => question.trim() !== "");
@@ -99,7 +99,7 @@
       var params = new URLSearchParams();
       params.set("question", question);
       params.set("response", encodeURIComponent(response));
-      var url = "share.html?" + params.toString();
+      var url = "https://whsprr.github.io/share.html?" + params.toString();
       navigator.clipboard.writeText(url).then(function() {
         alert("URL copied to clipboard!");
       }, function(error) {
@@ -108,8 +108,8 @@
     }
 
     window.onload = function() {
-      displayNextQuestion(); // Moved the displayNextQuestion call here
       readQuestionsFromFile();
+      displayNextQuestion(); // Call displayNextQuestion after readQuestionsFromFile
     };
   </script>
 </head>
