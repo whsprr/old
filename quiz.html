@@ -70,8 +70,8 @@
   </style>
   <script>
     var questions = [];
+    var currentQuestionIndex = -1;
 
-    // Function to read the questions from a file
     function readQuestionsFromFile() {
       fetch("https://whsprr.github.io/questions.txt")
         .then(response => response.text())
@@ -83,42 +83,23 @@
         });
     }
 
-    // Variable to store current question index
-    var currentQuestionIndex = -1;
-
-    // Function to display the next question
     function displayNextQuestion() {
-      // Generate a random index
       var randomIndex = Math.floor(Math.random() * questions.length);
-
-      // Set the current question index to the random index
       currentQuestionIndex = randomIndex;
-
-      // Get the question element
       var questionElement = document.getElementById("question");
-
-      // Display the current question
       questionElement.textContent = questions[currentQuestionIndex];
-
-      // Clear the previous response
       var responseElement = document.getElementById("response");
       responseElement.value = "";
     }
 
-    // Function to share the response and navigate to the share.html page
     function shareResponse() {
-      // Get the response element
       var responseElement = document.getElementById("response");
       var response = responseElement.value;
-
-      // Generate the URL with the question and response as parameters
       var question = encodeURIComponent(questions[currentQuestionIndex]);
       var params = new URLSearchParams();
       params.set("question", question);
       params.set("response", encodeURIComponent(response));
       var url = "share.html?" + params.toString();
-
-      // Copy the URL to the clipboard
       navigator.clipboard.writeText(url).then(function() {
         alert("URL copied to clipboard!");
       }, function(error) {
@@ -126,10 +107,9 @@
       });
     }
 
-    // Run the readQuestionsFromFile function to load the questions
     window.onload = function() {
+      displayNextQuestion(); // Moved the displayNextQuestion call here
       readQuestionsFromFile();
-      displayNextQuestion();
     };
   </script>
 </head>
