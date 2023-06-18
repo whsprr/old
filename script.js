@@ -1,5 +1,5 @@
 // Define an array of colors
-var colors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"];
+var colors = ["blue", "green", "#990000", "purple", "#ffea03"];
 
 // Function to select a random color
 function getRandomColor() {
