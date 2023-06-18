@@ -73,7 +73,7 @@
 
     // Function to read the questions from a file
     function readQuestionsFromFile() {
-      fetch("questions.txt")
+      fetch("https://whsprr.github.io/questions.txt")
         .then(response => response.text())
         .then(data => {
           questions = data.split("\n").filter(question => question.trim() !== "");
