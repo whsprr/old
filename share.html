@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whsprr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: blue;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #qrcode {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+  <script>
+    // Function to get URL parameters by name
+    function getParameterByName(name) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Function to display the shared question and response
+    function displaySharedData() {
+      // Get the question and response from the URL parameters
+      var sharedQuestion = decodeURIComponent(getParameterByName("question"));
+      var sharedResponse = decodeURIComponent(getParameterByName("response"));
+
+      // Get the question and response elements
+      var questionElement = document.getElementById("question");
+      var responseElement = document.getElementById("response");
+
+      // Update the HTML elements with the shared data
+      questionElement.textContent = sharedQuestion;
+      responseElement.textContent = sharedResponse;
+    }
+
+    // Run the displaySharedData function when the page loads
+    window.onload = displaySharedData;
+  </script>
+</head>
+<body>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <h1 id="question"></h1>
+  <h1 id="response"></h1>
+</body>
+</html>
