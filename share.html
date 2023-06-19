@@ -60,16 +60,16 @@
     // Function to display the shared question and response
     function displaySharedData() {
       // Get the question and response from the URL parameters
-      var sharedQuestion = decodeURIComponent(getParameterByName("question"));
-      var sharedResponse = decodeURIComponent(getParameterByName("response"));
+      var sharedQuestion = decodeURIComponent(getParameterByName("name"));
+      var sharedRating = decodeURIComponent(getParameterByName("rating"));
 
       // Get the question and response elements
       var questionElement = document.getElementById("question");
-      var responseElement = document.getElementById("response");
+      var ratingElement = document.getElementById("rating");
 
       // Update the HTML elements with the shared data
       questionElement.textContent = sharedQuestion;
-      responseElement.textContent = sharedResponse;
+      ratingElement.textContent = sharedRating;
     }
 
     // Function to encode the current page URL
@@ -80,12 +80,12 @@
       window.location.href = whsprrURL;
     }
 
-    // Function to share the current page URL via Snapchat
-    function shareViaSnapchat() {
+    // Function to share the current page URL via WhatsApp
+    function shareViaWhatsApp() {
       var currentURL = window.location.href;
       var encodedURL = encodeURIComponent(currentURL);
-      var snapchatURL = "https://api.whatsapp.com/send?text=" + encodedURL;
-      window.open(snapchatURL);
+      var whatsappURL = "https://api.whatsapp.com/send?text=" + encodedURL;
+      window.open(whatsappURL);
     }
     
     // Run the displaySharedData function when the page loads
@@ -96,8 +96,8 @@
   <script src="script.js"></script>
   <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
   <h1 id="question"></h1>
-  <h1 id="response"></h1>
-  <button onclick="encodeCurrentURL()">Share via whsprr qr</button>
-  <button onclick="shareViaSnapchat()">Share via whatsapp</button>
+  <h1 id="rating"></h1>
+  <button onclick="encodeCurrentURL()">Share via whsprr QR</button>
+  <button onclick="shareViaWhatsApp()">Share via WhatsApp</button>
 </body>
 </html>
