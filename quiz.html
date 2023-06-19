@@ -107,7 +107,7 @@
       params.set("rating", encodeURIComponent(rating));
       var url = "https://whsprr.github.io/share.html?" + params.toString();
       navigator.clipboard.writeText(url).then(function() {
-        alert("URL copied to clipboard! share this with friends 😊");
+        alert("URL copied to clipboard! share this with friends 😊 Tip: Go to that link if you want to share easily via whatsapp or whsprr QR");
       }, function(error) {
         console.error("Unable to copy URL to clipboard:", error);
       });
