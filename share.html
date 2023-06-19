@@ -62,14 +62,21 @@
       // Get the question and response from the URL parameters
       var sharedQuestion = decodeURIComponent(getParameterByName("name"));
       var sharedRating = decodeURIComponent(getParameterByName("rating"));
+      var starRating = "";
 
-      // Get the question and response elements
+      // Convert the rating to star emojis
+      var rating = parseInt(sharedRating);
+      if (!isNaN(rating) && rating > 0 && rating <= 5) {
+        starRating = "⭐️".repeat(rating);
+      }
+
+      // Get the question and rating elements
       var questionElement = document.getElementById("question");
       var ratingElement = document.getElementById("rating");
 
       // Update the HTML elements with the shared data
       questionElement.textContent = sharedQuestion;
-      ratingElement.textContent = sharedRating;
+      ratingElement.textContent = starRating;
     }
 
     // Function to encode the current page URL
