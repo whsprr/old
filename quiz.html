@@ -7,7 +7,6 @@
   <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <style>
     html, body {
       height: 100%;
@@ -50,7 +49,7 @@
       text-align: center;
     }
 
-    /* Update the styles for the input box */
+    /* Update the styles for the select box */
     #response {
       width: 100%;
       margin-top: 10px;
@@ -68,44 +67,44 @@
     }
   </style>
   <script>
-    var questions = [];
-    var currentQuestionIndex = -1;
+    var names = [];
+    var currentNameIndex = -1;
 
-    function readQuestionsFromFile() {
-      return fetch("questions.txt")
+    function readNamesFromFile() {
+      return fetch("names.txt")
         .then(response => response.text())
         .then(data => {
-          questions = data.split("\n").filter(question => question.trim() !== "");
+          names = data.split("\n").filter(name => name.trim() !== "");
         })
         .catch(error => {
-          console.error("Error reading questions from file:", error);
+          console.error("Error reading names from file:", error);
         });
     }
 
-    function startQuiz() {
-      readQuestionsFromFile().then(function() {
-        displayNextQuestion();
+    function startRating() {
+      readNamesFromFile().then(function() {
+        displayNextName();
         document.getElementById("startButtonContainer").style.display = "none";
-        document.getElementById("quizContainer").style.display = "block";
+        document.getElementById("ratingContainer").style.display = "block";
       });
     }
 
-    function displayNextQuestion() {
-      var randomIndex = Math.floor(Math.random() * questions.length);
-      currentQuestionIndex = randomIndex;
-      var questionElement = document.getElementById("question");
-      questionElement.textContent = questions[currentQuestionIndex];
+    function displayNextName() {
+      var randomIndex = Math.floor(Math.random() * names.length);
+      currentNameIndex = randomIndex;
+      var nameElement = document.getElementById("name");
+      nameElement.textContent = names[currentNameIndex];
       var responseElement = document.getElementById("response");
-      responseElement.value = "";
+      responseElement.value = "5"; // Set the default rating to 5 stars
     }
 
-    function shareResponse() {
+    function shareRating() {
       var responseElement = document.getElementById("response");
-      var response = responseElement.value;
-      var question = encodeURIComponent(questions[currentQuestionIndex]);
+      var rating = responseElement.value;
+      var name = encodeURIComponent(names[currentNameIndex]);
       var params = new URLSearchParams();
-      params.set("question", question);
-      params.set("response", encodeURIComponent(response));
+      params.set("name", name);
+      params.set("rating", encodeURIComponent(rating));
       var url = "https://whsprr.github.io/share.html?" + params.toString();
       navigator.clipboard.writeText(url).then(function() {
         alert("URL copied to clipboard!");
@@ -116,16 +115,21 @@
   </script>
 </head>
 <body>
-  <script src="script.js"></script>
-   <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
   <div id="startButtonContainer">
-    <button id="startButton" onclick="startQuiz()">Start</button>
+    <button id="startButton" onclick="startRating()">Start</button>
   </div>
-  <div id="quizContainer" style="display: none;">
-    <h1 id="question"></h1>
-    <input type="text" id="response">
-    <button onclick="shareResponse()">Share</button>
-    <button onclick="displayNextQuestion()">Next</button>
+  <div id="ratingContainer" style="display: none;">
+    <h1 id="name"></h1>
+    <select id="response">
+      <option value="1">1 Star</option>
+      <option value="2">2 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="5">5 Stars</option>
+    </select>
+    <button onclick="shareRating()">Share</button>
+    <button onclick="displayNextName()">Next</button>
   </div>
 </body>
 </html>
