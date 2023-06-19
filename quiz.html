@@ -65,6 +65,11 @@
       font-size: 2em; /* Set the font size to h1 size (adjust as desired) */
       line-height: 1.2; /* Adjust the line height as needed */
     }
+
+    /* Define a list of random colors */
+    .random-color {
+      background-color: #990000;
+    }
   </style>
   <script>
     var names = [];
@@ -96,6 +101,17 @@
       nameElement.textContent = names[currentNameIndex];
       var responseElement = document.getElementById("response");
       responseElement.value = "5"; // Set the default rating to 5 stars
+
+      // Generate a random color class
+      var colors = ["blue", "green", "#990000", "purple", "#ffea03"];
+      var randomColorClass = colors[Math.floor(Math.random() * colors.length)];
+
+      // Remove any existing color classes from the body element
+      var bodyElement = document.getElementsByTagName("body")[0];
+      bodyElement.className = "";
+
+      // Add the random color class to the body element
+      bodyElement.classList.add(randomColorClass);
     }
 
     function shareRating() {
@@ -114,8 +130,7 @@
     }
   </script>
 </head>
-<body>
-   <script src="script.js"></script>
+<body class="random-color">
   <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
   <div id="startButtonContainer">
     <button id="startButton" onclick="startRating()">Start</button>
@@ -123,13 +138,12 @@
   <div id="ratingContainer" style="display: none;">
     <h1 id="name"></h1>
     <select id="response">
-      <option value="1">1 Star</option>
-      <option value="2">2 Stars</option>
-      <option value="3">3 Stars</option>
-      <option value="4">4 Stars</option>
-      <option value="5">5 Stars</option>
+      <option value="1">⭐️</option>
+      <option value="2">⭐️⭐️</option>
+      <option value="3">⭐️⭐️⭐️</option>
+      <option value="4">⭐️⭐️⭐️⭐️</option>
+      <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
     </select>
-    <button onclick="shareRating()">Share</button>
     <button onclick="displayNextName()">Next</button>
   </div>
 </body>
