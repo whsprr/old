@@ -71,7 +71,7 @@
     var currentNameIndex = -1;
 
     function readNamesFromFile() {
-      return fetch("names.txt")
+      return fetch("questions.txt")
         .then(response => response.text())
         .then(data => {
           names = data.split("\n").filter(name => name.trim() !== "");
