@@ -7,64 +7,64 @@
   <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<style>
-  html, body {
-    height: 100%;
-  }
+  <style>
+    html, body {
+      height: 100%;
+    }
 
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-  h1 {
-    margin-top: 20px;
-  }
+    h1 {
+      margin-top: 20px;
+    }
 
-  button {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
 
-  button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
+    button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
 
-  #qrcode {
-    margin-top: 20px;
-    text-align: center;
-  }
+    #qrcode {
+      margin-top: 20px;
+      text-align: center;
+    }
 
-  /* Update the styles for the input box */
-  #messageInput {
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    text-align: center; /* Center-align the text */
-    background-color: transparent; /* Make the background transparent */
-    color: white; /* Set the text color to white */
-    font-size: 2em; /* Set the font size to h1 size (adjust as desired) */
-    line-height: 1.2; /* Adjust the line height as needed */
-  }
-</style>
+    /* Update the styles for the input box */
+    #messageInput {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      text-align: center; /* Center-align the text */
+      background-color: transparent; /* Make the background transparent */
+      color: white; /* Set the text color to white */
+      font-size: 2em; /* Set the font size to h1 size (adjust as desired) */
+      line-height: 1.2; /* Adjust the line height as needed */
+    }
+  </style>
   <script>
     var names = [];
     var currentNameIndex = -1;
@@ -84,33 +84,24 @@
       }
     }
 
-function displayNextName() {
-  if (names.length > 0) {
-    if (names.length === 1) {
-      currentNameIndex = 0;
-    } else {
-      var randomIndex = Math.floor(Math.random() * names.length);
-      currentNameIndex = randomIndex;
+    function displayNextName() {
+      if (names.length > 0) {
+        var randomIndex = Math.floor(Math.random() * names.length);
+        currentNameIndex = randomIndex;
+        var nameElement = document.getElementById("name");
+        nameElement.textContent = names[currentNameIndex];
+        var responseElement = document.getElementById("response");
+        responseElement.value = "5"; // Set the default rating to 5 stars
+
+        // Check if all names have been displayed
+        if (names.length === 1) {
+          document.getElementById("ratingContainer").style.display = "none";
+          alert("All names have been displayed.");
+        }
+      } else {
+        alert("You've gone through all your friends 😧");
+      }
     }
-    var nameElement = document.getElementById("name");
-    nameElement.textContent = names[currentNameIndex];
-    var responseElement = document.getElementById("response");
-    responseElement.value = "5"; // Set the default rating to 5 stars
-
-    // Remove the displayed name from the array
-    names.splice(currentNameIndex, 1);
-
-    // Check if all names have been displayed
-    if (names.length === 0) {
-      document.getElementById("ratingContainer").style.display = "none";
-      alert("All names have been displayed.");
-    }
-  } else {
-    alert("You've gone through all your friends 😧");
-  }
-}
-
-
 
     function shareRating() {
       var responseElement = document.getElementById("response");
