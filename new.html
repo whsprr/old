@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whsprr</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" sizes="526x526" href="icon.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<style>
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    margin-top: 20px;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  #qrcode {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  /* Update the styles for the input box */
+  #nameInput {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    text-align: center; /* Center-align the text */
+    background-color: transparent; /* Make the background transparent */
+    color: white; /* Set the text color to white */
+    font-size: 2em; /* Set the font size to h1 size (adjust as desired) */
+    line-height: 1.2; /* Adjust the line height as needed */
+  }
+</style>
+  <script>
+    function addName() {
+      var nameInput = document.getElementById("nameInput");
+      var name = nameInput.value;
+      if (name !== "") {
+        var names = localStorage.getItem("names");
+        if (names) {
+          names = JSON.parse(names);
+        } else {
+          names = [];
+        }
+        names.push(name);
+        localStorage.setItem("names", JSON.stringify(names));
+        displayNames();
+        nameInput.value = "";
+      }
+    }
+
+    function deleteName(index) {
+      var names = JSON.parse(localStorage.getItem("names"));
+      names.splice(index, 1);
+      localStorage.setItem("names", JSON.stringify(names));
+      displayNames();
+    }
+
+    function displayNames() {
+      var names = JSON.parse(localStorage.getItem("names"));
+      var namesList = document.getElementById("namesList");
+      namesList.innerHTML = "";
+      if (names) {
+        for (var i = 0; i < names.length; i++) {
+          var listItem = document.createElement("li");
+          listItem.innerHTML = names[i] + " <button onclick='deleteName(" + i + ")'>Delete</button>";
+          namesList.appendChild(listItem);
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <script src="script.js"></script>
+  <center><a href="index.html"><img src="logo.png" alt="whsprr" style="width:200px;height:63px;"></a></center>
+  <h1>Friends</h1>
+  <input type="text" id="nameInput" placeholder="Enter a name">
+  <button onclick="addName()">Add Name</button>
+  <ul id="namesList"></ul>
+  <script>displayNames();</script>
+</body>
+</html>
